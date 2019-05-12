@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <title>OOP</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 300;
+            line-height: 1.42em;
+            color: #A7A1AE;
+            background-color: #1F2739;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 300;
+            line-height: 1em;
+            text-align: center;
+            color: #4DC3FA;
+        }
+
+        h2 {
+            font-size: 1em;
+            font-weight: 300;
+            text-align: center;
+            display: block;
+            line-height: 1em;
+            padding-bottom: 2em;
+            color: #FB667A;
+        }
+
+        h2 a {
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #FB667A;
+            text-decoration: none;
+        }
+
+        .blue {
+            color: #185875;
+        }
+
+        .yellow {
+            color: #FFF842;
+        }
+
+        .container th h1 {
+            font-weight: bold;
+            font-size: 1em;
+            text-align: left;
+            color: #185875;
+        }
+
+        .container td {
+            font-weight: normal;
+            font-size: 1em;
+            -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+            -moz-box-shadow: 0 2px 2px -2px #0E1119;
+            box-shadow: 0 2px 2px -2px #0E1119;
+        }
+
+        .container {
+            text-align: left;
+            overflow: hidden;
+            width: 80%;
+            margin: 0 auto;
+            display: table;
+            padding: 0 0 8em 0;
+        }
+
+        .container td,
+        .container th {
+            padding-bottom: 2%;
+            padding-top: 2%;
+            padding-left: 2%;
+        }
+
+        /* Background-color of the odd rows */
+        .container tr:nth-child(odd) {
+            background-color: #323C50;
+        }
+
+        /* Background-color of the even rows */
+        .container tr:nth-child(even) {
+            background-color: #2C3446;
+        }
+
+        .container th {
+            background-color: #1F2739;
+        }
+
+        .container td:first-child {
+            color: #FB667A;
+        }
+
+        .container tr:hover {
+            background-color: #464A52;
+            /* -webkit-box-shadow: 0 6px 6px -6px #0E1119;
+            -moz-box-shadow: 0 6px 6px -6px #0E1119;
+            box-shadow: 0 6px 6px -6px #0E1119; */
+        }
+
+        .container td:hover {
+            background-color: #cccccc;
+            color: #403E10;
+            font-weight: bold;
+
+            /* box-shadow: rgb(218, 217, 216) -1px 1px; */
+            /* , rgb(173, 173, 170) -2px 2px; */
+            /* , rgb(92, 92, 91) -3px 3px, rgb(105, 105, 105) -4px 4px, rgb(136, 136, 136) -5px 5px, rgb(119, 119, 118) -6px 6px; */
+            /* transform: translate3d(1px, -1px, 0); */
+
+            /* transition-delay: 0s; */
+            /* transition-duration: 0.4s;
+            transition-property: all;
+            transition-timing-function: line; */
+        }
+
+        @media (max-width: 800px) {
+
+            .container td:nth-child(4),
+            .container th:nth-child(4) {
+                display: none;
+            }
+        }
+
+        .add {
+            width: 85%;
+            margin: 5px;
+        }
+
+        .add input {
+            float: right;
+            width: 100px;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .action {
+            width: 100px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bolder;
+            font-size: 1em;
+            background-color: #54648f; 
+        }
+
+        .edit {
+            color: black;
+        }
+
+        .edit:active {
+            background: #4DC3FA;
+            color: #574d4d;
+        }
+
+        .delete {
+            color: #8b0000;
+        }
+
+        .delete:active {
+            background: #8b0000;
+            color: whitesmoke;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #171d23;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .action_btn {
+            margin: 0 40%;
+        }
+
+        .action_btn button {
+            width: 100px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bolder;
+            font-size: 1em;
+            background-color: #4586e9; 
+        }
+
+        .action_btn button:hover {
+            background-color: #946308; 
+            color: #fefefe;
+        }
+
+        input.edit {
+            border-radius: 5px;
+            height: 50px;
+            width: 90%;
+            text-align: center;
+            font-size: small;
+            background: #171d23;
+            color: whitesmoke;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</header>
+
+<body>
+    <h1><span class="blue">&lt;</span>User<span class="blue">&gt;</span>
+        <span class="yellow">Management</pan>
+    </h1>
+    <div class='add'>
+        <input type="button" id="addBtn" value="ADD" onclick="addUser()">
+    </div>
+    <table class="container" id="myTable">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Edit Modal Declaration -->
+    <div id="editModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <h1>
+                <p id="titleModal">Edit User</p>
+            </h1>
+            <div>
+                <table class="container" id="editTable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="action_btn"><button id="updateBtn">SAVE</button> <button id="cancelEditbtn">Cancel</button></div>
+        </div>
+    </div>
+
+    <!-- Edit Modal Declaration -->
+    <div id="deleteModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <h1>
+                <p id="titleModal">Delete this User, Are you sure?</p>
+            </h1>
+            <div>
+                <table class="container" id="deleteTable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="action_btn"><button id="yesBtn">Yes</button> <button id="noBtn">No</button></div>
+        </div>
+    </div>
+
+    <div id="notiModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <h1>
+                <span id="info"></span>
+            </h1>
+        </div>
+    </div>
+</body>
+
+<script>
+    function User(id, name, username, email, phone) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    User.prototype.createNewRow = function (readonly = false) {
+        var row = '';
+
+        row = generateHTMLRow(this, readonly);
+
+        return `<tr id=userRow${this.id}>${row}</tr>`;
+    }
+
+    function generateHTMLRow(user, readonly) {
+        var row = "";
+        for (let i in user) {
+            // Show properties except function and id
+            if (typeof user[i] !== 'function' && i !== 'id') {
+                row += `<td>${user[i]}</td>`;
+            }
+        }
+
+        if (!readonly) {
+            row += `<td><button class="action edit" onclick="editUser(${user.id})">Edit</button> 
+                <button class="action delete" onclick="deleteUser(${user.id})">Delete</button></td>`;
+        }
+
+        return row;
+    }
+
+    User.prototype.createEditRow = function () {
+        var row = '',
+            user = this;
+
+        for (let i in user) {
+            // Show properties except function
+            if (i == 'id' && user[i]) {
+                // Hidden id
+                row += `<td style="display:none"><input id="edit_${i}" type="text" value="${user[i] ? user[i] : ''}"></td>`;
+            } else if (typeof user[i] !== 'function' && i !== 'id') {
+                row += `<td><input class="edit" id="edit_${i}" type="text" value="${user[i] ? user[i] : ''}"></td>`;
+            }
+        }
+
+        return `<tr>${row}</tr>`;
+    }
+
+    // Auto generate header for table via user's properties
+    User.generateHeader = function () {
+        var header = '',
+            user = new User();
+
+        for (let i in user) {
+            // Show properties except function and id
+            if (typeof user[i] !== 'function' && i !== 'id') {
+                header += `<td><h4>${i.toUpperCase()}</h4></td>`
+            }
+        }
+
+        return header;
+    }
+
+    // Auto generation instant of User via User's properties
+    User.createNewInstantByProperty = function (data) {
+        var user = new User();
+        for (let i in user) {
+            if (typeof user[i] !== 'function') {
+                user[i] = data[i];
+            }
+        }
+
+        return user;
+    }
+
+    // Load data via call API
+    User.loadData = function (api) {
+        // Set api into User;
+        User.api = api;
+        return $.ajax({
+            url: api
+        });
+    }
+
+    User.getDataById = function (id) {
+        return $.ajax({
+            url: `${User.api}/${id}`,
+        }).fail(function () {
+            // Show noti popup
+            notificationHandle('This is online fake API, so I cannot get new data :)!')
+        });
+    }
+
+    User.deleteById = function (id) {
+        return $.ajax({
+            url: `${User.api}/${id}`,
+            type: 'DELETE'
+        }).fail(function (resp) {
+            // Show noti popup
+            notificationHandle('Cannot delete data!');
+        });
+    }
+
+
+    ///////////////////////////////////////////////////////////////
+    /////////////////////// USER MANAGEMENT ///////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    function addUser(params) {
+        var bodyAddTable = $("#editTable tbody"),
+            user = new User();
+
+        bodyAddTable.empty();
+        $("#editModal")[0].style.display = "block";
+        bodyAddTable.append(user.createEditRow());
+    }
+
+    function editUser(id) {
+        User.getDataById(id).done(function (data) {
+            var bodyEditTable = $("#editTable tbody");
+
+            bodyEditTable.empty();
+            $("#editModal")[0].style.display = "block";
+            var editUser = User.createNewInstantByProperty(data);
+            bodyEditTable.append(editUser.createEditRow());
+            
+        });
+    }
+
+    function userFromView() {
+        var user = new User();
+        
+        for (let i in user) {
+            if (typeof user[i] !== 'function') {
+                user[i] = $(`#edit_${i}`)[0] && $(`#edit_${i}`)[0].value;
+            }
+        }
+
+        return user;
+    }
+
+    function deleteUser(id) {
+        User.getDataById(id).done(function (data) {
+            var bodyDeleteTable = $("#deleteTable tbody");
+
+            bodyDeleteTable.empty();
+            $("#deleteModal")[0].style.display = "block";
+            var deleteUser = User.createNewInstantByProperty(data);
+            bodyDeleteTable.append(deleteUser.createNewRow(true));
+        });
+
+        // Close Popup when click cancel button
+        $("#noBtn")[0].onclick = function () {
+            $("#deleteModal")[0].style.display = "none";
+        }
+
+        $("#yesBtn")[0].onclick = function () {
+            User.deleteById(id).done(function (params) {
+                $(`tr#userRow${id}`).remove();
+                $("#deleteModal")[0].style.display = "none";
+                notificationHandle("Delete user successfully!");
+            });
+        }
+    }
+
+    function saveUser(user) {
+        var reqMethod = 'POST',
+
+            url = User.api;
+        if (user.id) {
+            reqMethod = 'PUT';
+            url += `/${user.id}`
+        }
+        $.ajax({
+            url: url,
+            type: reqMethod,
+            contentType: 'application/json',
+            dataType: 'text',
+            data: JSON.stringify(user),
+        }).done(function (data) {
+            updateDataRow(User.createNewInstantByProperty(JSON.parse(data)));
+            $("#editModal")[0].style.display = "none";
+
+            // Show noti popup
+            notificationHandle('Save User successfully!');
+        }).fail(function (resp) {
+            // Show noti popup
+            notificationHandle('Cannot save data!');
+        });
+    }
+
+    function updateDataRow(user) {
+        var userRowById = $(`#userRow${user.id}`),
+            row;
+
+        if (userRowById[0]) {
+            userRowById.html(generateHTMLRow(user));
+        } else {
+            $("#myTable tbody tr:first").before(user.createNewRow());
+        }
+    }
+
+
+
+
+
+    $(document).ready(function () {
+        // Declaration area
+        var headerTable = $("#myTable thead"),
+            bodyTable = $("#myTable tbody"),
+            headerEditTable = $("#editTable thead");
+            headerDeleteTable = $("#deleteTable thead");
+
+        // Generate header for table depend on User
+        headerTable.append(User.generateHeader());
+        headerEditTable.append(User.generateHeader());
+        headerDeleteTable.append(User.generateHeader());
+        // Load data
+        User.loadData('https://jsonplaceholder.typicode.com/users')
+            .done(function (data) {
+                data.forEach(e => {
+                    var user = User.createNewInstantByProperty(e);
+                    bodyTable.append(user.createNewRow());
+                });
+            });
+
+    });
+
+
+    // Modal hanlde
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == $("#editModal")[0]) {
+            $("#editModal")[0].style.display = "none";
+        }
+
+        if (event.target == $("#deleteModal")[0]) {
+            $("#deleteModal ")[0].style.display = "none";
+        }
+
+        if (event.target == $("#notiModal")[0]) {
+            $("#notiModal ")[0].style.display = "none";
+        }
+    }
+
+    $("#updateBtn")[0].onclick = function () {
+        // Get data from edit input
+        saveUser(userFromView());
+    }
+
+    // Close Popup when click cancel button
+    $("#cancelEditbtn")[0].onclick = function () {
+        $("#editModal")[0].style.display = "none";
+    }
+
+    function notificationHandle(message) {
+        $("#notiModal")[0].style.display = "block";
+        $("#info").html(message);
+
+        setTimeout(() => {
+            $("#notiModal ")[0].style.display = "none";
+        }, 2000);
+    }
+
+</script>
+
+</html>
